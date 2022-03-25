@@ -18,6 +18,9 @@ To install them do the following.
 
 
 pip install pygame
+
 pip install PySimpleGUI
+
 pip install tkinter
+
 pip install mutagen
