@@ -14,7 +14,10 @@ tkinter
 
 mutagen
 
-Markup : * Bullet list
-              * Nested bullet
-                  * Sub-nested bullet etc
-          * Bullet list item 2
+To install them do the following.
+
+
+pip install pygame
+pip install PySimpleGUI
+pip install tkinter
+pip install mutagen
