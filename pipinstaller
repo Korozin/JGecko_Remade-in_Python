@@ -1,0 +1,4 @@
+pip install pygame
+pip install PySimpleGUI
+pip install tkinter
+pip install mutagen
