@@ -9,11 +9,10 @@ from sys import byteorder
 from tkinter import filedialog
 from binascii import hexlify, unhexlify
 
-# PyGecko v2 | Release 2021/11/2
-# CopyRight (c) Pixel&Syoch
+# PyGecko
 
-#------- Start User Interface Setting -------#
-screeny=23 # 画面にはみ出る場合はここを変更(17など)
+#------ Start User Interface Setting ------#
+screeny=23 # Change if this appears on screen. (17)
 buttonx=12 # buttontype1
 buttonxm=17 # buttontype2
 buttonxs=28 # buttontype3
