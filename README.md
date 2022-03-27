@@ -6,17 +6,21 @@ In order to run it, execute it like any other .py app/ "python example.py"
 
 ### There are dependancies you need to meet. The following Python modules are required!
 
-pygame
+~~pygame~~
 
-PySimpleGUI
+~~PySimpleGUI~~
 
-tkinter
+~~tkinter~~
+
+~~mutagen~~
 
 ### To install them do the following.
 
 
-pip install pygame
+~~pip install pygame
 
-pip install PySimpleGUI
+~~pip install PySimpleGUI
 
-pip install tkinter
+~~pip install tkinter
+
+~~pip install mutagen
