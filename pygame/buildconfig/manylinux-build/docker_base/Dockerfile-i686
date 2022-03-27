@@ -1,0 +1,97 @@
+ARG BASE_IMAGE=manylinux1_i686
+FROM quay.io/pypa/$BASE_IMAGE
+ENV MAKEFLAGS="-j 16"
+
+# Set up repoforge
+COPY RPM-GPG-KEY.dag.txt /tmp/
+RUN rpm --import /tmp/RPM-GPG-KEY.dag.txt
+
+#ENV RPMFORGE_FILE "rpmforge-release-0.5.3-1.el5.rf.i386.rpm"
+#ADD "https://repoforge.cu.be/redhat/el5/en/i386/dag/RPMS/${RPMFORGE_FILE}" /tmp/${RPMFORGE_FILE}
+
+#RUN rpm -i /tmp/${RPMFORGE_FILE}
+
+# Install SDL and portmidi dependencies
+RUN linux32 yum install -y zlib-devel libX11-devel \
+    mesa-libGLU-devel audiofile-devel \
+    java-1.7.0-openjdk-devel jpackage-utils \
+    giflib-devel
+RUN linux32 yum install -y dbus-devel \
+    dejavu-sans-fonts fontconfig libXrandr-devel \
+    libXcursor-devel libXi-devel libXxf86vm-devel \
+    libXrandr-devel libXinerama-devel libXcomposite-devel mesa-libGLU-devel xz
+RUN linux32 yum install -y libcap-devel libxkbcommon-devel
+
+ADD brotli /brotli_build/
+RUN ["linux32", "bash", "/brotli_build/build-brotli.sh"]
+
+#ADD bzip2 /bzip2_build/
+#RUN ["linux32", "bash", "/bzip2_build/build-bzip2.sh"]
+
+#ADD zlib-ng /zlib-ng_build/
+#RUN ["linux32", "bash", "/zlib-ng_build/build-zlib-ng.sh"]
+
+ADD libjpegturbo /libjpegturbo_build/
+RUN ["linux32", "bash", "/libjpegturbo_build/build-jpeg-turbo.sh"]
+
+ADD libpng /libpng_build/
+RUN ["linux32", "bash", "/libpng_build/build-png.sh"]
+
+ADD libwebp /webp_build/
+RUN ["linux32", "bash", "/webp_build/build-webp.sh"]
+
+ADD libtiff /libtiff_build/
+RUN ["linux32", "bash", "/libtiff_build/build-tiff.sh"]
+
+ADD opus /opus_build/
+RUN ["linux32", "bash", "/opus_build/build-opus.sh"]
+
+#ADD harfbuzz /harfbuzz_build/
+#RUN ["linux32", "bash", "/harfbuzz_build/build-harfbuzz.sh"]
+
+ADD freetype /freetype_build/
+RUN ["linux32", "bash", "/freetype_build/build-freetype.sh"]
+
+# Replace yum-installed libasound with the one we just compiled.
+RUN ["linux32", "rm", "-f", "/usr/lib/libasound*"]
+ADD alsa /alsa_build/
+RUN ["linux32", "bash", "/alsa_build/build-alsa.sh"]
+
+ADD ogg /ogg_build/
+RUN ["linux32", "bash", "/ogg_build/build-ogg.sh"]
+
+ADD mpg123 /mpg123_build/
+RUN ["linux32", "bash", "/mpg123_build/build-mpg123.sh"]
+
+ADD flac /flac_build/
+RUN ["linux32", "bash", "/flac_build/build-flac.sh"]
+
+ADD sndfile /sndfile_build/
+RUN ["linux32", "bash", "/sndfile_build/build-sndfile.sh"]
+
+ADD pulseaudio /pulseaudio_build/
+RUN ["linux32", "bash", "/pulseaudio_build/build-pulseaudio.sh"]
+
+ADD libmodplug /libmodplug_build/
+RUN ["linux32", "bash", "/libmodplug_build/build-libmodplug.sh"]
+
+ADD cmake /cmake_build/
+RUN ["linux32", "bash", "/cmake_build/build-cmake.sh"]
+
+ADD fluidsynth /fluidsynth_build/
+RUN ["linux32", "bash", "/fluidsynth_build/build-fluidsynth.sh"]
+
+# Build and install SDL
+ADD sdl_libs /sdl_build/
+RUN ["linux32", "bash", "/sdl_build/build-sdl2-libs.sh"]
+
+
+ENV MAKEFLAGS=
+
+ADD portmidi /portmidi_build/
+RUN ["linux32", "bash", "/portmidi_build/build-portmidi.sh"]
+
+ADD pypy /pypy_build/
+ARG BASE_IMAGE2=manylinux1_i686
+RUN if [ "$BASE_IMAGE2" = "manylinux2010_i686" ] ; then linux32 bash /pypy_build/getpypy32.sh ; else echo "no pypy on manylinux1" ; fi
+RUN if [ "$BASE_IMAGE2" = "manylinux2014_i686" ] ; then linux32 bash /pypy_build/getpypy32.sh ; else echo "no pypy on manylinux1" ; fi
