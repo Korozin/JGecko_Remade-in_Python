@@ -34,7 +34,12 @@ Note: due to constant complaints about people not knowing how to install python 
 
 #### Some codes have invalid memory addresses. Sometimes this is due to it being sent in code form, try sending it via the memory viewer to see if the addresses properly displays.
 
-#### Sometimes depending on the device the screen size can be out of proportion. To fix this in PyGecko.py go to line 407 where it states "window = sg.Window('PyGecko', layout, size=(720,400),background_color='#0d0d35',button_color=('#e4ecff','')).Finalize()" and edit where it says 720,400 to your desired window dimensions.
+#### Sometimes depending on the device the screen size can be out of proportion. To fix this in PyGecko.py go to line 407 where it states 
+
+```python
+window = sg.Window('PyGecko', layout, size=(720,400),background_color='#0d0d35',button_color=('#e4ecff','')).Finalize()
+```
+#### and edit where it says 720,400 to your desired window dimensions.
 
 # Images of program
 
